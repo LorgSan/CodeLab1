@@ -41,7 +41,7 @@ public class Spawner : MonoBehaviour
         newFallingObject.transform.position = new Vector3(
                                         Random.Range(-3f, 3),
                                         4f,
-                                        -2f
+                                        0f
             );
         SpawnTime -= 0.1f;
         if (SpawnTime < minSpawnTime)
