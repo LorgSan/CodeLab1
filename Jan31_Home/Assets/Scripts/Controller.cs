@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    public float Speed = 0.2f;
+    public float Speed;
     //public KeyCode upKey;
     public KeyCode leftKey;
     //public KeyCode downKey;
     public KeyCode rightKey;
-    public GameManager myManager;
 
     // Start is called before the first frame update
     void Start() //comment!
@@ -23,11 +22,11 @@ public class Controller : MonoBehaviour
 
         //WASD controller!!
         Vector3 newPosition = transform.position;
-        //if (Input.GetKey(upKey)) //up movement on W
+        //if (Input.GetKey(upKey)) //up movement on chosed upkey
         //{
         //    newPosition.y += Speed;
         //}
-        if (Input.GetKey(leftKey)) //left movement on A
+        if (Input.GetKey(leftKey)) //left movement on chosen leftKey
         {
             newPosition.x -= Speed;
         }
@@ -41,23 +40,5 @@ public class Controller : MonoBehaviour
         }
 
         transform.position = newPosition; //updating the position every time
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "Diamond(Clone)") //if the collided object has such name we add +1 score
-        {
-            GameObject collidedObject = collision.gameObject; //remember the collided object
-            //Debug.Log("Diamond");
-            myManager.Score += 1; //add the score in the game manager class
-            Destroy(collidedObject); //and destroy it
-        }
-        if (collision.gameObject.name == "Fireball(Clone)") //if the collided object has such name we -1 health;
-        {
-            GameObject collidedObject = collision.gameObject; //remember the collided game object!
-            myManager.UpdateHealth(); //call the function in the manager
-            Destroy(collidedObject); //and destroy it
-        }
-
     }
 }

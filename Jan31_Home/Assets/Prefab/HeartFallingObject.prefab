@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 9041576555466568242}
   - component: {fileID: 81825612807550934}
+  - component: {fileID: -1766204848844095702}
+  - component: {fileID: 2080826687065873822}
   m_Layer: 0
-  m_Name: Heart
+  m_Name: HeartFallingObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7349110151418870727}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -82,3 +84,71 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &-1766204848844095702
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7349110151418870727}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 2
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0.9
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &2080826687065873822
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7349110151418870727}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 12.009739, y: 10.79}
+    newSize: {x: 1.5, y: 1.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 6.0048695, y: 0.9851739}
+      - {x: 6.0048695, y: 3.424652}
+      - {x: 4.9727826, y: 4.9258695}
+      - {x: 3.9406955, y: 5.3011737}
+      - {x: 1.6888695, y: 5.3011737}
+      - {x: 0.18765217, y: 4.175261}
+      - {x: -0.7506087, y: 4.832043}
+      - {x: -1.7826957, y: 5.3011737}
+      - {x: -3.8468695, y: 5.3011737}
+      - {x: -4.5974784, y: 4.9258695}
+      - {x: -5.723391, y: 3.7999566}
+      - {x: -6.0048695, y: 3.143174}
+      - {x: -6.0048695, y: 1.2666521}
+      - {x: -5.441913, y: -0.23456521}
+      - {x: -4.8789563, y: -1.079}
+      - {x: -2.064174, y: -3.7999566}
+      - {x: -0.093826085, y: -5.207348}
+      - {x: 0.093826085, y: -5.207348}
+      - {x: 0.37530434, y: -5.1135216}
+      - {x: 2.5333042, y: -3.424652}
+      - {x: 4.5974784, y: -1.4543043}
+      - {x: 5.6295652, y: -0.14073913}
