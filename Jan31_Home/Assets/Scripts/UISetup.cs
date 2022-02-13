@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq; //had to add it in otder to use method list<>.Last :)
+using UnityEngine.UI;
 
 public class UISetup : MonoBehaviour
 {
@@ -11,10 +12,9 @@ public class UISetup : MonoBehaviour
     float spriteSeperator; //connects spriteWidth and gapValue togeteher;
     int heartsCreated = 0; //counter of hearts created to run an if statement a given amount of times
     int health; //privately used varialbe that inherits from player's setup health
-
-    
     public List<GameObject> healthList = new List<GameObject>();
 
+    public Text Name;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,11 @@ public class UISetup : MonoBehaviour
         health = gameObject.GetComponent<PlayerSetup>().health; //inherit the health value from player setup
         spriteWidth = healthSprite.GetComponent<SpriteRenderer>().bounds.size.x; //finding the width of the sprite
         spriteSeperator = spriteWidth + gapValue; //connecting them!
+
         HealthStater(); //call a repeating function
+
+        Name.text = PlayerPrefs.GetString("PlayerNameKey", "Unnamed"); //inherit the name from the player prefs! that were set in the previous scene
+        //next time I'll try to allow the player change it in the pause menu or smth
     }
 
     void HealthStater() //function that creates the hearts in the beginning of the game (theoretically can be remade to refill them at any point in time)
@@ -41,13 +45,20 @@ public class UISetup : MonoBehaviour
     // Update is called once per frame
     void Update() //we're moving our hearts along with the player body
     {
+        Vector3 PlayerPos = gameObject.transform.position; //player's position variable
+
+        Name.transform.position = new Vector3( //changing the position of the name
+                                              PlayerPos.x,
+                                              PlayerPos.y - 1.7f,
+                                              0f);
+
         foreach (var Heart in healthList)
         {
             Heart.transform.position = new Vector3(
-                                            gameObject.GetComponent<Controller>().transform.position.x + (spriteSeperator * healthList.IndexOf(Heart)) - ((spriteSeperator*(healthList.Count-1))/2),
+                                            PlayerPos.x + (spriteSeperator * healthList.IndexOf(Heart)) - ((spriteSeperator*(healthList.Count-1))/2),
                                             //we take player's position 
                                             //and separate each object depending on its number in the list and center it along all hearts in the list (-1 bc the last heart has spriteSeperator too
-                                            gameObject.GetComponent<Controller>().transform.position.y - 0.9f, //same with y (but mostly for the sake of positioning is with the player, mb I should make a private variable to not ask another component each time)
+                                            PlayerPos.y - 0.9f, //same with y (but mostly for the sake of positioning is with the player, mb I should make a private variable to not ask another component each time)
                                             0f);
         }
     }
