@@ -49,7 +49,7 @@ public class UISetup : MonoBehaviour
 
         Name.transform.position = new Vector3( //changing the position of the name
                                               PlayerPos.x,
-                                              PlayerPos.y - 1.7f,
+                                              PlayerPos.y - 1.4f,
                                               0f);
 
         foreach (var Heart in healthList)
