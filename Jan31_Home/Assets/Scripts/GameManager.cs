@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static GameObject Loser; //thing that remembers who is the loser 
     public static GameObject Winner; //thing that remembers the winner
+    public static string loserName;
 
     //singleton is here!
     private static GameManager instance;
@@ -46,11 +47,11 @@ public class GameManager : MonoBehaviour
 
     public void EndGame(GameObject Loser)
     {
-        string loserName = Loser.name;
+        loserName = Loser.GetComponent<UISetup>().Name.text;
         Debug.Log(loserName);   
         UtilScript.GoToScene("EndScene");
-        var endGameScriptInstance = EndGameScript.FindInstance();
-        Debug.Log(endGameScriptInstance);
+        //var endGameScriptInstance = EndGameScript.FindInstance();
+        //Debug.Log(endGameScriptInstance);
         //instance.UpdateEndText(loserName);  
     }
 }
