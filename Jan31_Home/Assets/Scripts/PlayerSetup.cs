@@ -24,7 +24,10 @@ public class PlayerSetup : MonoBehaviour
 
     void Start()
     {
+        myCollider = GetComponent<BoxCollider2D>();
+        myRenderer = GetComponent<SpriteRenderer>();
         myManager = GameManager.FindInstance(); //accessing the GameManager (this way cause it uses a singletone pattern)
+        TransitionState(State.Normal);
     }
 
     void Update()
@@ -52,6 +55,7 @@ public class PlayerSetup : MonoBehaviour
             GameObject collidedObject = collision.gameObject; //remember the collided game object!
             gameObject.GetComponent<UISetup>().UpdateHealth(this.gameObject, 1, true); //call the function in the manager
             Destroy(collidedObject); //and destroy it
+            TransitionState(State.Immune);
         }
         if (collision.gameObject.name == "HeartFallingObject(Clone)") //if the collided object has such name we +1 health;
         {
@@ -61,4 +65,66 @@ public class PlayerSetup : MonoBehaviour
         }
 
     }
+
+    //7mar homework here
+
+    public enum State //stating the all the states we will use
+    {
+        Normal,
+        Immune
+    }
+
+    public Color mainColor;
+    public Color immuneColor; //we will declare two color parameters to see the difference between states easily
+    public SpriteRenderer myRenderer; //and of course the renderer component
+    public BoxCollider2D myCollider; //also collider
+    public bool isFlickering; //check if we want the sprite to flicker
+    public float immunityDuration = 1.5f; //how long the immune state will be
+
+    public State currentState; 
+
+    public void TransitionState(State newState) //the transition state void that is getting triggered from the start and when the player hits the fireball
+    //overall it has the same functionality as the class code
+    {
+        currentState = newState;
+        switch (newState)
+        {
+            case State.Normal: //this is our 'default' state when we exist most of the time
+                Debug.Log("normal");
+                myRenderer.color = mainColor; //we have our main color on
+                myCollider.enabled = true; //and our collider is always on!
+                break;
+            case State.Immune: //immune state is sort of a 'break' moment after you get hit
+                Debug.Log("immune");
+                //myRenderer.color = immuneColor;
+                myCollider.enabled = !myCollider.enabled; //switch the activity of collider component while we'are immune so we won't hit anything
+                isFlickering = true; //activating the flickering effect
+                StartCoroutine("Flicker"); //starting it's coroutine 
+                StartCoroutine(StateDelay(State.Normal, 2f)); //and now starting the main delay coroutine
+                break;
+            default:
+                Debug.Log("this state doesn't exist");
+                break;
+        }
+    }
+
+     IEnumerator StateDelay(State nextState, float timeToWait) //this coroutine counts time of the whole immune system state, how long should it be
+     {
+        Debug.Log("in coroutine!");
+        yield return new WaitForSeconds(timeToWait); //we wait for the given amount of time
+        TransitionState(nextState); //and get ourselves into the state we need to go to
+        StopCoroutine("Flicker"); //also stop the flickering effect coroutine! 
+        isFlickering = false; //I think these two lines make the code more hardcoded, but I didn't figure out where I can put this stuff to make it work properly
+     }
+
+       public IEnumerator Flicker() //the flickering effect state!
+      {
+          while (isFlickering == true) //while this is true we just go between two colors (the immune color has A of 0, so it looks like it kinda disappers)
+        {
+             myRenderer.color = immuneColor;
+             yield return new WaitForSeconds(0.08f);
+             myRenderer.color = mainColor;
+             yield return new WaitForSeconds(0.05f);
+        }
+     }
 }
