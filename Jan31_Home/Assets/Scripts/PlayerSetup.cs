@@ -100,7 +100,7 @@ public class PlayerSetup : MonoBehaviour
                 myCollider.enabled = !myCollider.enabled; //switch the activity of collider component while we'are immune so we won't hit anything
                 isFlickering = true; //activating the flickering effect
                 StartCoroutine("Flicker"); //starting it's coroutine 
-                StartCoroutine(StateDelay(State.Normal, 2f)); //and now starting the main delay coroutine
+                StartCoroutine(StateDelay(State.Normal, immunityDuration)); //and now starting the main delay coroutine
                 break;
             default:
                 Debug.Log("this state doesn't exist");
